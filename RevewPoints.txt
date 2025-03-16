@@ -1,0 +1,16 @@
+1. SQL Scripts missing.
+2. Tight coupled
+   direct access of dao layer in controller, which is wrong
+   controller->service->dao>repo
+3. comments and java documentation
+    each method should have the comments , explaining the implementation and author, version
+4. Missing standard response
+    ex: login api returning "Login successful!" for successfully login
+    but expected
+    {
+        "status":true,
+        "message":"Login successful!",
+        "datetime": ----,
+        "result":{}
+    }
+ 5. implement swagger
