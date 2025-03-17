@@ -1,32 +1,44 @@
 package org.form.security.service;
 
-import org.form.security.dao.repo.UserRepository;
+import org.form.security.config.JwtUtil;
+import org.form.security.dao.UserDao;
 import org.form.security.dto.LoginDto;
-import org.form.security.dto.response.ResponseEntity;
+import org.form.security.dto.response.ApiResponse;
 import org.form.security.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private final UserDao userDao;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    public UserService(UserDao userDao) {
+        this.userDao = userDao;
     }
 
-    public ResponseEntity loginUser(LoginDto loginDto) {
-        User user = userRepository.findByUserName(loginDto.getUserName())
-                .orElse(null);
+    public ApiResponse<Object> loginUser(LoginDto loginDto) {
+        User user = userDao.findByUserName(loginDto.getUserName());
 
         if (user == null) {
-            return new ResponseEntity(false, "User not found");
+            return new ApiResponse<>(false, "User not found", new Date(), null);
         }
 
-        if (!user.getPassword().equals(loginDto.getPassword())) {
-            return new ResponseEntity(false, "Invalid credentials");
+        if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
+            return new ApiResponse<>(false, "Invalid credentials", new Date(), null);
         }
 
-        return new ResponseEntity(true, "Login Successful");
+        String token = jwtUtil.generateToken(user.getUserName());
+        return new ApiResponse<>(true, "Login successful!", new Date(), token);
     }
 }

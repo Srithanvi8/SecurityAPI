@@ -9,15 +9,9 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseEntity <T> {
+public class ApiResponse <T> {
     private boolean status;
     private String message;
     private Date timestamp;
     private T result;
-
-    public ResponseEntity(boolean status, String message) {
-        this.status = status;
-        this.message = message;
-        this.timestamp = new Date();
-    }
 }
