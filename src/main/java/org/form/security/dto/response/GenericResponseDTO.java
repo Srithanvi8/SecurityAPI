@@ -9,7 +9,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApiResponse <T> {
+public class GenericResponseDTO<T> {
     private boolean status;
     private String message;
     private Date timestamp;
