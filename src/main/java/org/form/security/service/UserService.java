@@ -14,19 +14,29 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+/**
+ * Creating User service class to write business logic
+ */
+
 @Service
 public class UserService {
 
     @Autowired
     private final UserDao userDao;
 
-
+    /**
+     * Providing secret key for generating JWT token
+     */
     private final String SECRET_KEY = "6PfhoGv/MEZsuvD2dp72Y47Lhv/KvGnhTwyVp/Q87PE="; // Secret key for signing JWT
 
     public UserService(UserDao userDao) {
         this.userDao = userDao;
     }
 
+    /**
+     * Implementing business logic
+     * @param loginDto
+     */
     public ResponseEntity<GenericResponseDTO<Object>> loginUser(LoginDto loginDto) {
         User user = userDao.findByUserName(loginDto.getUserName());
 
@@ -40,6 +50,9 @@ public class UserService {
                     .body(new GenericResponseDTO<>(false, "Invalid credentials", new Date(), null));
         }
 
+        /**
+         * Generating JWT token in response
+         */
         String token = Jwts.builder()
                 .setSubject(user.getUserName())
                 .setIssuedAt(new Date())

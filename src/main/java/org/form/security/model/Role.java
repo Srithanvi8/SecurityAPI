@@ -7,8 +7,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.Date;
 
+/**
+ * @Author Srithanvi
+ * Creating entity class role to connect with database
+ * Using lombok to avoid lengthy code
+ * Defining columns which are in database
+ */
 @Entity
-@Table(name = "Roles")
+@Table(name = "Roles", schema = "dbo")
 @Getter
 @Setter
 @NoArgsConstructor

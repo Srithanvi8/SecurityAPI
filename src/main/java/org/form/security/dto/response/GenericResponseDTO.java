@@ -6,6 +6,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+/**
+ * Creating GenericResponse DTO for getting response in a proper format
+ * @param <T>
+ * Using lombok to avoid lengthy code
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

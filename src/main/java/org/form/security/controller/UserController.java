@@ -18,12 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 public class UserController {
 
+    /**
+     * Injecting user service inorder to login
+     */
     @Autowired
     private UserService userService;
 
+    /**
+     * Creating Login API for user login
+     * @param loginDto
+     * @return login dto
+     */
     @PostMapping("/login")
     public ResponseEntity<GenericResponseDTO<Object>> loginUser(@RequestBody LoginDto loginDto) {
         return userService.loginUser(loginDto);
     }
-
 }

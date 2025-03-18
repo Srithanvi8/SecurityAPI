@@ -11,8 +11,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 
+/**
+ * @Author Srithanvi
+ * Creating entity class Users to connect with database
+ * Using lombok to avoid lengthy code
+ * Defining columns which are in database
+ */
 @Entity
-@Table(name = "Users")
+@Table(name = "Users", schema = "dbo")
 @Getter
 @Setter
 @NoArgsConstructor

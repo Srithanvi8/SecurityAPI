@@ -8,14 +8,25 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-    @Repository
+/**
+ * Creating Repository inorder to reduce tight coupling
+ */
+@Repository
     public class UserDaoImpl implements UserDao {
 
         private static final Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 
-        @Autowired
+    /**
+     * Injecting User Repository
+     */
+    @Autowired
         private UserRepository userRepository;
 
+    /**
+     * Implementing Dao methods
+     * @param userName
+     * @return username if available or else null
+     */
         @Override
         public User findByUserName(String userName) {
             try {
