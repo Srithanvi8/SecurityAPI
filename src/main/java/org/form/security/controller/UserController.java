@@ -1,5 +1,7 @@
 package org.form.security.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.form.security.dto.LoginDto;
 import org.form.security.dto.response.GenericResponseDTO;
 import org.form.security.service.UserService;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/user")
+@Tag(name = "User Controller", description = "APIs related to user authentication")
 public class UserController {
 
     /**
@@ -30,6 +33,7 @@ public class UserController {
      * @return login dto
      */
     @PostMapping("/login")
+    @Operation(summary = "Login user", description = "Authenticate user and returning JWT token in response header")
     public ResponseEntity<GenericResponseDTO<Object>> loginUser(@RequestBody LoginDto loginDto) {
         return userService.loginUser(loginDto);
     }
